@@ -24,6 +24,9 @@ int main()
         std::shared_ptr<B> b = std::make_shared<B>();
         a->ptrB = b;
         b->ptrA = a;
+
+        std::cout << "a.use_count() = " << a.use_count() << std::endl;
+        std::cout << "b.use_count() = " << b.use_count() << std::endl;
     }
     std::cout << "Exiting main..." << std::endl;
     return 0;

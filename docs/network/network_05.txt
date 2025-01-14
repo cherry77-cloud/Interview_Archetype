@@ -1,0 +1,12 @@
+1. 主机字节序和网络字节序
+◼ 发送端总是把要发送的数据转化成大端字节序数据后再发送，而接收端知道对方传送过来的数据总是采用大端字节序，所以接收端可以根据自身采用的字节序
+决定是否对接收到的数据进行转换(小端机转换，大端机不转换)。因此大端字节序也称为网络字节序，它给所有接收数据的主机提供了一个正确解释收到的格式化
+数据的保证.
+◼ 即使是同一台机器上的两个进程(比如一个由C语言编写，另一个由Java编写)通信，也要考虑字节序的问题(JAVA虚拟机采用大端字节序).
+◼ Linux提供了如下4个函数来完成主机字节序和网络字节序之间的转换:
+    #include <netinet/in.h>
+    unsigned long int htonl(unsigned long int hostlong);
+    unsigned short int htons(unsigned short int hostshort);
+    unsigned long int ntohl(unsigned long int netlong);
+    unsigned short int ntohs(unsigned short int netshort);
+长整型函数通常用来转换IP地址，短整型函数用来转换端口号.

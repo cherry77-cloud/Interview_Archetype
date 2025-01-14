@@ -10,3 +10,57 @@
     unsigned long int ntohl(unsigned long int netlong);
     unsigned short int ntohs(unsigned short int netshort);
 长整型函数通常用来转换IP地址，短整型函数用来转换端口号.
+
+
+2. socket地址
+◼ 通用socket地址: socket网络编程接口中表示socket地址的是结构体sockaddr，其定义如下:
+#include <bits/socket.h>
+struct sockaddr
+{
+    sa_family_t sa_family;
+    char sa_data[14];
+};
+
+◼ Linux定义了下面新的通用socket地址结构体:
+#include <bits/socket.h>
+struct sockaddr_storage 
+{
+    sa_family_t sa_family;
+    unsigned long int __ss_align;
+    char __ss_padding[128-sizeof(__ss_align)];
+};
+
+◼ 专用socket地址，Linux为各个协议族提供了专门的socket地址结构体，UNIX本地域协议族使用如下专用socket地址结构体:
+#include <sys/un.h>
+struct sockaddr_un
+{
+    sa_family_t sin_family;
+    char sun_path[108];
+};
+
+◼ TCP/IP协议族有sockaddr_in和sockaddr_in6两个专用socket地址结构体，它们分别用于IPv4和IPv6:
+struct sockaddr_in
+{
+    sa_family_t sin_family;
+    u_int16_t sin_port;
+    struct in_addr sin_addr;
+};
+struct in_addr
+{
+    u_int32_t s_addr;
+};
+struct sockaddr_in6
+{
+    sa_family_t sin6_family;
+    u_int16_t sin6_port;
+    u_int32_t sin6_flowinfo;
+    struct in6_addr sin6_addr;
+    u_int32_t sin6_scope_id;
+};
+struct in6_addr
+{
+    unsigned char sa_addr[16];
+};
+
+◼ 所有专用socket地址(以及sockaddr_storage)类型的变量在实际使用时都需要转化为通用socket地址类型sockaddr(强制转换)，因为所有socket编程
+接口使用的地址参数的类型都是sockaddr.

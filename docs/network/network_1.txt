@@ -62,7 +62,7 @@
 5. DNS工作原理
 ◼ DNS是一套分布式的域名服务系统。每个DNS服务器上都存放着大量的机器名和IP地址的映射，并且是动态更新的。众多网络客户端程序都使用
 DNS协议来向DNS服务器查询目标主机的IP地址.
-◼ Linux使用/etc/resolve.conf文件来存放DNS服务器的IP地址.
+◼ Linux使用/etc/resolv.conf文件来存放DNS服务器的IP地址.
 ◼ Linux下一个常用的访问DNS服务器的客户端程序是host， host -t A www.baidu.com
 
 
